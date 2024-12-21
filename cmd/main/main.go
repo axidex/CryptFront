@@ -25,7 +25,7 @@ func main() {
 
 	err := godotenv.Load()
 	if err != nil {
-		appLogger.Fatal("Error loading .env file")
+		appLogger.Warnf("Error loading .env file")
 	}
 
 	frontPort, _ := strconv.Atoi(os.Getenv("FRONT_PORT"))
