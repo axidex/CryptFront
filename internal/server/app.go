@@ -42,6 +42,7 @@ func NewEchoApp(port int, logger logger.Logger, apiClient *resty.Client, appRout
 
 func (a *EchoApp) InitRoutes() {
 	a.serv.Use(middleware.Recover())
+	a.serv.Use(a.LoggerMiddleware)
 
 	a.serv.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
@@ -54,7 +55,13 @@ func (a *EchoApp) InitRoutes() {
 		},
 		MaxAge: 3600,
 	}))
-	a.serv.Use(a.LoggerMiddleware)
+
+	a.serv.Use(middleware.SecureWithConfig(middleware.SecureConfig{
+		Skipper:            middleware.DefaultSkipper,
+		XSSProtection:      "1; mode=block",
+		ContentTypeNosniff: "nosniff",
+		XFrameOptions:      "SAMEORIGIN",
+	}))
 
 	a.serv.GET("/", a.HomeHandler)
 	a.serv.POST("/model-fields", a.ModelFieldsHandler)
