@@ -1,0 +1,69 @@
+package template
+
+import "front/internal/models"
+
+templ Home(appModels map[string]models.Route) {
+	<div>
+		<div>
+			<label>
+				Models:
+				<select id="modelSelect" onchange="fetchModelFields()">
+					<option value="">Choose...</option>
+					for m, _ := range appModels {
+						<option value={ m }>{ m }</option>
+					}
+				</select>
+			</label>
+		</div>
+		<div id="modelInfo">
+			Choose model to see fields
+		</div>
+		<button onclick="submitModelData()">Solve</button>
+		<div id="solution"></div>
+		<script>
+			function fetchModelFields() {
+				const model = document.getElementById("modelSelect").value;
+				fetch('/model-fields', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ model })
+				})
+				.then(response => response.text())
+				.then(html => {
+					document.getElementById("modelInfo").innerHTML = html;
+				});
+			}
+
+			function submitModelData() {
+				const model = document.getElementById("modelSelect").value;
+				if (!model) {
+					alert('Choose a model first.');
+					return;
+				}
+				const fields = document.querySelectorAll('#modelInfo input');
+				const data = {};
+				fields.forEach(field => {
+					data[field.name] = field.value;
+				});
+				fetch('/send-to-api', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ model, data })
+				})
+				.then(response => response.text())
+				.then(html => {
+					if (html) {
+					// Replace all newline characters with <br> tags
+					const formattedHtml = html.replace(/\n/g, '<br>');
+			
+					// Set the innerHTML with the formatted HTML
+					document.getElementById("solution").innerHTML = formattedHtml;
+    }
+				})
+				.catch(() => {
+					alert('Error when connecting to API.');
+				});
+			}
+		</script>
+	</div>
+}

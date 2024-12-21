@@ -1,0 +1,13 @@
+package template
+
+import "front/internal/models"
+
+templ Problem(route models.Route) {
+	<div>
+		for key, example := range route.Params {
+			<label>
+				{ key }: <input type="text" name={ key } value={ example }/>
+			</label>
+		}
+	</div>
+}
