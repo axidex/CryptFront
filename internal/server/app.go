@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"front/internal/models"
 	"front/internal/template"
+	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 
 	"github.com/axidex/CryptBot/pkg/logger"
@@ -41,6 +42,12 @@ func NewEchoApp(port int, logger logger.Logger, apiClient *resty.Client, appRout
 
 func (a *EchoApp) InitRoutes() {
 	a.serv.Use(a.LoggerMiddleware)
+	a.serv.Use(middleware.Recover())
+
+	a.serv.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"},
+		AllowMethods: []string{http.MethodGet, http.MethodPost},
+	}))
 
 	a.serv.GET("/", a.HomeHandler)
 	a.serv.POST("/model-fields", a.ModelFieldsHandler)

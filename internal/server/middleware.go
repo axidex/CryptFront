@@ -11,7 +11,7 @@ func (a *EchoApp) LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 			c.Error(err)
 		}
 
-		a.logger.Infof(fmt.Sprintf("%s | %s | %s", c.Request().Method, c.Request().RequestURI, c.Request().Host))
+		a.logger.Infof(fmt.Sprintf("%s | %s | %s", c.Request().Method, c.Request().RequestURI, c.Request().Header.Get("X-Real-IP")))
 		return nil
 	}
 }
