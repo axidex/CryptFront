@@ -53,12 +53,9 @@ templ Home(appModels map[string]models.Route) {
 				.then(response => response.text())
 				.then(html => {
 					if (html) {
-					// Replace all newline characters with <br> tags
-					const formattedHtml = html.replace(/\n/g, '<br>');
-			
-					// Set the innerHTML with the formatted HTML
-					document.getElementById("solution").innerHTML = formattedHtml;
-    }
+						// Set the innerHTML with the formatted HTML
+						document.getElementById("solution").innerHTML = html.replace(/\n/g, '<br>');
+					}
 				})
 				.catch(() => {
 					alert('Error when connecting to API.');
