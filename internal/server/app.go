@@ -41,13 +41,20 @@ func NewEchoApp(port int, logger logger.Logger, apiClient *resty.Client, appRout
 }
 
 func (a *EchoApp) InitRoutes() {
-	a.serv.Use(a.LoggerMiddleware)
 	a.serv.Use(middleware.Recover())
 
 	a.serv.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"},
+		AllowOrigins: []string{"*"},
 		AllowMethods: []string{http.MethodGet, http.MethodPost},
+		AllowHeaders: []string{
+			"Content-Type",
+			"Authorization",
+			"Accept",
+			"Origin",
+		},
+		MaxAge: 3600,
 	}))
+	a.serv.Use(a.LoggerMiddleware)
 
 	a.serv.GET("/", a.HomeHandler)
 	a.serv.POST("/model-fields", a.ModelFieldsHandler)
