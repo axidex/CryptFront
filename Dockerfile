@@ -1,12 +1,12 @@
-FROM --platform=linux/amd64 golang:1.23.0-alpine as builder
+FROM golang:1.23.0-alpine AS builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN go get ./...
+RUN go install github.com/a-h/templ/cmd/templ@v0.2.793 && templ generate
 
-RUN RUN go install github.com/a-h/templ/cmd/templ@v0.2.793 && templ generate
+RUN go get ./...
 
 RUN go build -tags=jsoniter -o app cmd/main/main.go
 

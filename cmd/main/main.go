@@ -35,19 +35,6 @@ func main() {
 
 	apiClient := resty.New().SetBaseURL(fmt.Sprintf("http://%s:%d", apiHost, apiPort))
 
-	//appRoutes := map[string]models.Route{
-	//	"des3": {
-	//		Handler: "/des3",
-	//		Params: map[string]string{
-	//			"l":  "5",
-	//			"r":  "1",
-	//			"k1": "3",
-	//			"k2": "7",
-	//			"k3": "5",
-	//		},
-	//	},
-	//}
-
 	data, err := swagger.RequestOpenApi(apiClient, openApiRoute)
 	if err != nil {
 		appLogger.Errorf("Got error when tried to get open api: %s", err)
