@@ -1,0 +1,20 @@
+package views
+
+import "front/internal/models"
+
+templ Problem(route models.Route) {
+	for key, example := range route.Params {
+		<label
+			class="solver-info-content-label w-[95%] block m-[5px_auto]"
+			id="solver-info-content-label"
+		>
+			{ key }
+			<input
+				class="solver-info-content-label w-[95%] block m-[5px_auto_auto_auto] border border-gray-300 rounded-[8px] p-[10px] shadow-md"
+				type="text"
+				name={ key }
+				value={ example }
+			/>
+		</label>
+	}
+}

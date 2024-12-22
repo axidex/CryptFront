@@ -1,0 +1,56 @@
+package views
+
+import (
+	"front/internal/models"
+	"front/views/components"
+)
+
+templ Selector(appModels map[string]models.Route) {
+	<div class="solver-selector" id="solver-selector">
+		<select
+			class="solver-selector-select w-full py-2 px-4 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md"
+			id="solver-selector-select"
+			onchange={ fetchModelFields("solver-selector-select", "solver-info") }
+		>
+			<option value="">Choose...</option>
+			for m, _ := range appModels {
+				<option value={ m }>{ m }</option>
+			}
+		</select>
+	</div>
+}
+
+templ Info() {
+	<div
+		class="solver-info-content mt-3 w-full border border-[#ddd] rounded-[8px] shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-gray-100 p-[10px] text-center shadow-md"
+		id="solver-info"
+	>
+		Choose Problem to see fields
+	</div>
+}
+
+templ Solve() {
+	<div class="solver-solve">
+		<button
+			class="solver-solve-button mt-3 py-1 px-4 w-full h-10 rounded-lg text-white bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-600 shadow-md"
+			onclick={ submitModelData("#solver-info input", "solver-selector-select", "solver-solution") }
+		>Solve</button>
+	</div>
+}
+
+templ Solution() {
+	<div
+		class="solver-solution mt-3 w-full border border-[#ddd] rounded-[8px] shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-gray-100 p-[10px] text-left shadow-md hidden"
+		id="solver-solution"
+	></div>
+}
+
+templ Home(appModels map[string]models.Route) {
+	@components.Header()
+	<main class="min-h-screen w-full p-2">
+		@Selector(appModels)
+		@Info()
+		@Solve()
+		@Solution()
+	</main>
+}

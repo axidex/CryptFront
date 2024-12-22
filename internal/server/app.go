@@ -3,9 +3,10 @@ package server
 import (
 	"fmt"
 	"front/internal/models"
-	"front/internal/template"
-	"github.com/labstack/echo/v4/middleware"
+	"front/views"
 	"net/http"
+
+	"github.com/labstack/echo/v4/middleware"
 
 	"github.com/axidex/CryptBot/pkg/logger"
 	"github.com/go-resty/resty/v2"
@@ -87,7 +88,7 @@ func (a *EchoApp) Stop(err error) {
 }
 
 func (a *EchoApp) HomeHandler(c echo.Context) error {
-	return Render(c, http.StatusOK, template.Home(a.appRoutes))
+	return Render(c, http.StatusOK, views.Home(a.appRoutes))
 }
 
 // ModelFieldsHandler возвращает HTML для динамических полей
@@ -104,7 +105,7 @@ func (a *EchoApp) ModelFieldsHandler(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Unknown model")
 	}
 
-	return Render(c, http.StatusOK, template.Problem(route))
+	return Render(c, http.StatusOK, views.Problem(route))
 }
 
 func (a *EchoApp) SendToAPIHandler(c echo.Context) error {
