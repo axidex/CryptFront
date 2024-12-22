@@ -47,7 +47,7 @@ templ Solution() {
 
 templ Home(appModels map[string]models.Route) {
 	@components.Header()
-	<main class="min-h-screen w-full p-2">
+	<main class="min-h-screen w-full p-2 text-xs">
 		@Selector(appModels)
 		@Info()
 		@Solve()

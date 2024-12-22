@@ -68,6 +68,8 @@ func (a *EchoApp) InitRoutes() {
 	a.serv.POST("/model-fields", a.ModelFieldsHandler)
 	a.serv.POST("/send-to-api", a.SendToAPIHandler)
 
+	a.serv.Static("/static", "static")
+
 	a.serv.GET("/ping", a.health)
 }
 

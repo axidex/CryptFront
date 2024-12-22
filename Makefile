@@ -14,4 +14,5 @@ template:
 run-templ:
 	templ generate --watch --proxy="http://localhost:5050" --cmd="go run cmd/main/main.go"
 
-
+styles:
+	npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css

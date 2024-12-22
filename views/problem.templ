@@ -4,17 +4,22 @@ import "front/internal/models"
 
 templ Problem(route models.Route) {
 	for key, example := range route.Params {
+		<div class="solver-info-content-div inline-block border-gray-300 bg-white m-[5px_auto] p-[3px] rounded-md shadow-md w-[5%]">
+			<span class="text-lg">
+				{ key }
+			</span>
+		</div>
 		<label
-			class="solver-info-content-label w-[95%] block m-[5px_auto]"
+			class="solver-info-content-label w-[95%] inline-block m-[5px_auto] align-left"
 			id="solver-info-content-label"
 		>
-			{ key }
 			<input
-				class="solver-info-content-label w-[95%] block m-[5px_auto_auto_auto] border border-gray-300 rounded-[8px] p-[10px] shadow-md"
+				class="solver-info-content-label w-[95%] inline-block m-[5px_auto_auto_auto] border border-gray-300 rounded-[8px] p-[10px] shadow-md"
 				type="text"
 				name={ key }
 				value={ example }
 			/>
 		</label>
+		<br/>
 	}
 }
