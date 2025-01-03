@@ -90,7 +90,11 @@ func (a *EchoApp) Stop(err error) {
 }
 
 func (a *EchoApp) HomeHandler(c echo.Context) error {
-	return Render(c, http.StatusOK, views.Home(a.appRoutes))
+	err := a.Render(c, http.StatusOK, views.Home(a.appRoutes))
+	if err != nil {
+		a.logger.Errorf("Rendering failed: %s", err)
+	}
+	return err
 }
 
 // ModelFieldsHandler возвращает HTML для динамических полей
@@ -107,7 +111,7 @@ func (a *EchoApp) ModelFieldsHandler(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "Unknown model")
 	}
 
-	return Render(c, http.StatusOK, views.Problem(route))
+	return a.Render(c, http.StatusOK, views.Problem(route))
 }
 
 func (a *EchoApp) SendToAPIHandler(c echo.Context) error {

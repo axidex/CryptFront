@@ -3,9 +3,11 @@ FROM node:18-alpine AS css-builder
 
 WORKDIR /app
 
-COPY ./static/css ./static/css
-COPY ./tailwind.config.js ./
-COPY ./views ./views
+# COPY ./static/css ./static/css
+# COPY ./tailwind.config.js ./
+# COPY ./views ./views
+
+COPY . .
 
 RUN npm install -D tailwindcss
 RUN npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css

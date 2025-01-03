@@ -1,8 +1,11 @@
 .idea
 
 *_templ.go
+*_templ.txt
 
 .env
+
+tmp
 
 *.exe
 
