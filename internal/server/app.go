@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/json"
 	"fmt"
 	"front/internal/models"
 	"front/views"
@@ -70,7 +71,11 @@ func (a *EchoApp) InitRoutes() {
 
 	a.serv.Static("/static", "static")
 
-	a.serv.GET("/ping", a.health)
+	a.serv.GET("/health", a.health)
+
+	data, _ := json.MarshalIndent(a.serv.Routes(), "", "\t")
+	a.logger.Infof("Routes:")
+	a.logger.Infof("%s", string(data))
 }
 
 func (a *EchoApp) Run() error {
