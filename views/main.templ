@@ -8,7 +8,7 @@ import (
 templ Selector(appModels map[string]models.Route) {
 	<div id="solver-selector">
 		<select
-			class="w-full py-2 px-4 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md"
+			class="text-center text-lg w-full h-20 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md"
 			id="solver-selector-select"
 			onchange={ fetchModelFields("solver-selector-select", "solver-info") }
 		>
@@ -22,7 +22,7 @@ templ Selector(appModels map[string]models.Route) {
 
 templ Info() {
 	<div
-		class="mt-3 w-full border border-[#ddd] rounded-[8px] shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-gray-100 p-[10px] text-center shadow-md"
+		class="mt-5 text-lg w-full border border-[#ddd] rounded-[8px] shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-gray-100 p-[10px] text-center shadow-md"
 		id="solver-info"
 	>
 		Choose Problem to see fields
@@ -30,9 +30,9 @@ templ Info() {
 }
 
 templ Solve() {
-	<div class="solver-solve">
+	<div class="mt-5 text-lg">
 		<button
-			class="mt-3 py-1 px-4 w-full h-10 rounded-lg text-white bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-600 shadow-md"
+			class="h-20 w-full h-10 rounded-lg text-white bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-600 shadow-md"
 			onclick={ submitModelData("#solver-info input", "solver-selector-select", "solver-solution") }
 		>Solve</button>
 	</div>
@@ -40,17 +40,25 @@ templ Solve() {
 
 templ Solution() {
 	<div
-		class="mt-3 w-full border border-[#ddd] rounded-[8px] shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-gray-100 p-[10px] text-left shadow-md hidden"
+		class="mt-5 text-lg w-full border border-[#ddd] rounded-[8px] shadow-[0_2px_4px_rgba(0,0,0,0.1)] bg-gray-100 p-[10px] text-left shadow-md hidden"
 		id="solver-solution"
 	></div>
 }
 
 templ Home(appModels map[string]models.Route) {
 	@components.Header()
-	<main class="min-h-screen w-full p-2 text-xs">
-		@Selector(appModels)
-		@Info()
-		@Solve()
-		@Solution()
+	<main class="min-h-screen w-full p-2 text-xs flex flex-col">
+		<div class="flex-grow-0 max-h-[15dvh]">
+			@Selector(appModels)
+		</div>
+		<div class="flex-grow-0 max-h-[100dvh]">
+			@Info()
+		</div>
+		<div class="flex-grow-0 max-h-[20dvh]">
+			@Solve()
+		</div>
+		<div class="flex-grow">
+			@Solution()
+		</div>
 	</main>
 }
