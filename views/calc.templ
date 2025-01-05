@@ -44,7 +44,7 @@ script convertNumber() {
 
 templ CalcFrom() {
 	<div>
-		<select id="from-base" class="text-center w-full h-20 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md">
+		<select id="from-base" class="text-center w-full h-[90%] border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md">
 			<option value="2">Binary (2)</option>
 			<option value="8">Octal (8)</option>
 			<option value="10" selected>Decimal (10)</option>
@@ -55,7 +55,7 @@ templ CalcFrom() {
 
 templ CalcTo() {
 	<div>
-		<select id="to-base" class="text-center w-full h-20 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md">
+		<select id="to-base" class="text-center w-full h-[90%] border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md">
 			<option value="2">Binary (2)</option>
 			<option value="8">Octal (8)</option>
 			<option value="10">Decimal (10)</option>
@@ -66,38 +66,37 @@ templ CalcTo() {
 
 templ CalcInput() {
 	<div>
-		<input type="text" id="number-input" class="block w-full p-2 border border-gray-300 rounded-lg shadow-sm" placeholder="Enter a number"/>
+		<input type="text" id="number-input" class="h-[90%] text-center block w-full border border-gray-300 rounded-lg shadow-sm" placeholder="Enter a number"/>
 	</div>
 }
 
 templ CalcResult() {
 	<div>
-		<div id="result" class="block w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+		<div id="result" class="h-[90%] flex items-center justify-center block w-full border border-gray-300 rounded-lg shadow-sm">
 			Result
 		</div>
 	</div>
 }
 
 templ CalcButton() {
-	<div>
+	<div class="col-span-2">
 		<button
 			onclick={ convertNumber() }
-			class="h-20 w-full h-10 rounded-lg text-white bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-600 shadow-md"
+			class="h-[90%] w-full rounded-lg text-white bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-600 shadow-md"
 		>Convert</button>
 	</div>
 }
 
 templ Calc() {
 	@components.Header()
-	<main class="min-h-screen w-full p-2 text-lg">
+	<main class="grid grid-rows-4 grid-flow-col gap-4 min-h-screen w-full p-2 text-lg">
 		<div class="grid grid-cols-2 gap-4 max-h-[20dvh]">
 			@CalcFrom()
 			@CalcTo()
 			@CalcInput()
 			@CalcResult()
-		</div>
-		<div class="max-h-[20dvh] mt-5">
 			@CalcButton()
 		</div>
+		<div class="max-h-[20dvh]"></div>
 	</main>
 }

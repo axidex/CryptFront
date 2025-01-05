@@ -2,6 +2,7 @@ package views
 
 script fetchModelFields(sourceElement, destinationElement string) {
 	const model = document.getElementById(sourceElement).value;
+	document.getElementById('solver-solution').classList.add('hidden');
 	fetch('/model-fields', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
