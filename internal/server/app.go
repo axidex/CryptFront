@@ -66,6 +66,7 @@ func (a *EchoApp) InitRoutes() {
 	}))
 
 	a.serv.GET("/", a.HomeHandler)
+	a.serv.GET("/calc", a.CalcHandler)
 	a.serv.POST("/model-fields", a.ModelFieldsHandler)
 	a.serv.POST("/send-to-api", a.SendToAPIHandler)
 
@@ -96,6 +97,14 @@ func (a *EchoApp) Stop(err error) {
 
 func (a *EchoApp) HomeHandler(c echo.Context) error {
 	err := a.Render(c, http.StatusOK, views.Home(a.appRoutes))
+	if err != nil {
+		a.logger.Errorf("Rendering failed: %s", err)
+	}
+	return err
+}
+
+func (a *EchoApp) CalcHandler(c echo.Context) error {
+	err := a.Render(c, http.StatusOK, views.Calc())
 	if err != nil {
 		a.logger.Errorf("Rendering failed: %s", err)
 	}

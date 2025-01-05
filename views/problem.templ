@@ -3,7 +3,7 @@ package views
 import "front/internal/models"
 
 templ Problem(route models.Route) {
-	for key, example := range route.Params {
+	for key, example := range route.Params.AllFromFront() {
 		<div class="text-lg text-center flex justify-stretch m-[5px] p-[3px] w-full">
 			<div class="basis-1/4 bg-white flex justify-center items-center text-base m-[5px] border border-gray-300 rounded-[8px] p-[10px] shadow-md">
 				{ key }

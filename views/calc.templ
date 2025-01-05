@@ -1,0 +1,103 @@
+package views
+
+import "front/views/components"
+
+script convertNumber() {
+	const fromBase = parseInt(document.getElementById('from-base').value, 10);
+    const toBase = parseInt(document.getElementById('to-base').value, 10);
+    const numberInput = document.getElementById('number-input').value.trim();
+    const resultElement = document.getElementById('result');
+
+    // Hide the result initially
+    // resultElement.classList.add('hidden');
+
+    if (!numberInput) {
+        resultElement.textContent = 'Please enter a number.';
+        resultElement.classList.remove('hidden');
+        return;
+    }
+
+    // Convert the input number to decimal first
+    let decimalNumber;
+    try {
+        decimalNumber = parseInt(numberInput, fromBase);
+        if (isNaN(decimalNumber)) {
+            throw new Error('Invalid number for the selected base.');
+        }
+    } catch (e) {
+        resultElement.textContent = 'Invalid input number.';
+        // resultElement.classList.remove('hidden');
+        return;
+    }
+
+    // Convert the decimal number to the target base
+    let result;
+    if (toBase === 10) {
+        result = decimalNumber.toString();
+    } else {
+        result = decimalNumber.toString(toBase).toUpperCase();
+    }
+
+    resultElement.textContent = `${result}`;
+    // resultElement.classList.remove('hidden');
+}
+
+templ CalcFrom() {
+	<div>
+		<select id="from-base" class="text-center w-full h-20 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md">
+			<option value="2">Binary (2)</option>
+			<option value="8">Octal (8)</option>
+			<option value="10" selected>Decimal (10)</option>
+			<option value="16">Hexadecimal (16)</option>
+		</select>
+	</div>
+}
+
+templ CalcTo() {
+	<div>
+		<select id="to-base" class="text-center w-full h-20 border border-gray-300 rounded-lg text-gray-700 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-md">
+			<option value="2">Binary (2)</option>
+			<option value="8">Octal (8)</option>
+			<option value="10">Decimal (10)</option>
+			<option value="16" selected>Hexadecimal (16)</option>
+		</select>
+	</div>
+}
+
+templ CalcInput() {
+	<div>
+		<input type="text" id="number-input" class="block w-full p-2 border border-gray-300 rounded-lg shadow-sm" placeholder="Enter a number"/>
+	</div>
+}
+
+templ CalcResult() {
+	<div>
+		<div id="result" class="block w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+			Result
+		</div>
+	</div>
+}
+
+templ CalcButton() {
+	<div>
+		<button
+			onclick={ convertNumber() }
+			class="h-20 w-full h-10 rounded-lg text-white bg-zinc-900 hover:bg-zinc-800 active:bg-zinc-600 shadow-md"
+		>Convert</button>
+	</div>
+}
+
+templ Calc() {
+	@components.Header()
+	<main class="min-h-screen w-full p-2 text-lg">
+		<div class="grid grid-cols-2 gap-4 max-h-[20dvh]">
+			@CalcFrom()
+			@CalcTo()
+			@CalcInput()
+			@CalcResult()
+		</div>
+		<div class="max-h-[20dvh] mt-5">
+			@CalcButton()
+		</div>
+	</main>
+}

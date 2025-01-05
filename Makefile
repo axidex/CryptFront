@@ -27,7 +27,7 @@ server:
     --build.cmd "go build -o tmp/main.exe cmd/main/main.go" \
     --build.bin "tmp\main.exe" \
     --build.delay "100" \
-    --build.exclude_dir "node_modules,.idea" \
+    --build.exclude_dir ".idea,node_modules,tmp" \
     --build.include_ext "go" \
     --build.stop_on_error "true" \
     --misc.clean_on_exit true \

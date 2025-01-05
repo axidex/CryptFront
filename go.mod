@@ -5,6 +5,7 @@ go 1.23.0
 require (
 	github.com/a-h/templ v0.2.793
 	github.com/axidex/CryptBot v0.0.0-20241221141022-8ee5a2a36fa4
+	github.com/elliotchance/orderedmap/v3 v3.1.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-openapi/loads v0.22.0
 	github.com/go-resty/resty/v2 v2.16.0

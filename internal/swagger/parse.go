@@ -3,8 +3,10 @@ package swagger
 import (
 	"encoding/json"
 	"front/internal/models"
-	"github.com/go-openapi/loads"
 	"strconv"
+
+	"github.com/elliotchance/orderedmap/v3"
+	"github.com/go-openapi/loads"
 )
 
 func GetRoutes(data json.RawMessage) (map[string]models.Route, error) {
@@ -16,7 +18,7 @@ func GetRoutes(data json.RawMessage) (map[string]models.Route, error) {
 
 	for routePath, path := range openApi.Spec().Paths.Paths {
 		var route models.Route
-		params := make(map[string]string)
+		params := orderedmap.NewOrderedMap[string, string]()
 		route.Handler = routePath
 
 		for _, parameter := range path.Post.Parameters {
@@ -25,7 +27,7 @@ func GetRoutes(data json.RawMessage) (map[string]models.Route, error) {
 			if !ok {
 				param = strconv.Itoa(int(parameter.Default.(float64)))
 			}
-			params[parameter.Name] = param
+			params.Set(parameter.Name, param)
 		}
 		route.Params = params
 
