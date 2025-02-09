@@ -9,8 +9,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install -D tailwindcss
-RUN npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css
+RUN npm install -g tailwindcss
+RUN tailwindcss -i ./static/css/input.css -o ./static/css/output.css
 
 FROM golang:1.23.0-alpine AS builder
 
